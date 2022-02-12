@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const { User, Post, Pet } = require("../models");
 
+//Route to get back User profile
+
 router.get("/profile/:id", (req, res) => {
   User.findOne({
     where: {
@@ -20,6 +22,49 @@ router.get("/profile/:id", (req, res) => {
   })
     .then((profileData) => {
       res.json(profileData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(err);
+    });
+});
+
+//Route to get all Post
+router.get("/dashboard", (req, res) => {
+  Post.findAll({
+    attributes: ["post_desc"],
+    include: [
+      {
+        model: User,
+        attributes: ["profile_name"],
+      },
+    ],
+  })
+    .then((postdata) => {
+      res.json(postdata);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(err);
+    });
+});
+
+// Route to get single Post
+router.get("/dashboard/:id", (req, res) => {
+  Post.findOne({
+    where: {
+      id: req.params.id,
+    },
+    attributes: ["post_desc"],
+    include: [
+      {
+        model: User,
+        attributes: ["profile_name"],
+      },
+    ],
+  })
+    .then((singlePostData) => {
+      res.json(singlePostData);
     })
     .catch((err) => {
       console.log(err);
