@@ -16,9 +16,11 @@ router.post("/", (req, res) => {
     });
 });
 
-//Route to update Post
+//Route to update Post 
 router.put("/:id", (req, res) => {
   Post.update({
+    // what are you tring to update here using this id ? 
+    //add post_desc to be added from the req.body
     where: {
       id: req.body.id,
     },
