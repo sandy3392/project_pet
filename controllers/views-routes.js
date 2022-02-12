@@ -1,7 +1,21 @@
 const router = require("express").Router();
 const { User, Post, Pet } = require("../models");
 
-//Route to get back User profile
+//Get all users
+router.get("/profile/", (req, res) => {
+  User.findAll({
+    exclude: ["password"],
+  })
+    .then((usersData) => {
+      res.json(usersData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(err);
+    });
+});
+
+//Route to get back a User profile
 
 router.get("/profile/:id", (req, res) => {
   User.findOne({
