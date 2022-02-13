@@ -2,22 +2,22 @@ const router = require("express").Router();
 const { User } = require("../../models");
 
 // GET /api/users
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   User.findAll({
-      attributes: { exclude: ['password'] }
+    attributes: { exclude: ["password"] },
   })
-  .then(dbUserData => res.json(dbUserData))
-  .catch(err => {
-    console.log(err);
-    res.status(500).json(err);
-  });
+    .then((dbUserData) => res.json(dbUserData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
-router.post('/login', (req, res) => {
-   User.findOne({
-    where: { 
-      email: req.body.email 
-    }
+router.post("/login", (req, res) => {
+  User.findOne({
+    where: {
+      email: req.body.email,
+    },
   }).then((userDbData) => {
     if (!userDbData) {
       res.status(404).json({ message: "No user found" });
@@ -36,7 +36,7 @@ router.post('/login', (req, res) => {
       req.session.username = userDbData.username;
       req.session.loggedIn = true;
 
-      res.json({ user: userDbData, message: "Logged in!" });
+      res.render("homepage");
     });
   });
 });
@@ -62,8 +62,8 @@ router.put("/:id", (req, res) => {
   User.update(req.body, {
     individualHooks: true,
     where: {
-      id: req.params.id
-    }
+      id: req.params.id,
+    },
   })
     .then((userDbData) => {
       if (!userDbData) {
