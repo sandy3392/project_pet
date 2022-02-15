@@ -13,34 +13,6 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/login", (req, res) => {
-  User.findOne({
-    where: {
-      email: req.body.email,
-    },
-  }).then((userDbData) => {
-    if (!userDbData) {
-      res.status(404).json({ message: "No user found" });
-      return;
-    }
-
-    const passwordAuth = userDbData.checkPassword(req.body.password);
-
-    if (!passwordAuth) {
-      res.status(400).json({ message: "Incorrect Password" });
-      return;
-    }
-
-    req.session.save(() => {
-      req.session.user_id = userDbData.id;
-      req.session.username = userDbData.username;
-      req.session.loggedIn = true;
-
-      res.render("homepage");
-    });
-  });
-});
-
 // Route to Create User
 router.post("/", (req, res) => {
   User.create({

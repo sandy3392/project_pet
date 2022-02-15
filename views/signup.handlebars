@@ -1,22 +1,44 @@
-<body>
-  <form class="signup-form">
-    <div>
-      <label for="username-signup">username:</label>
-      <input type="text" id="username-signup" />
+<div class="d-flex justify-content-center">
+  <form class="bg-light p-3 mt-5 rounded" id="signupForm">
+    <div class="row g-3 p-1">
+      <div class="col-auto">
+        <label for="userSignup" class="visually-hidden">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          id="userSignup"
+          placeholder="Username"
+        />
+      </div>
     </div>
-    <div>
-      <label for="email-signup">email:</label>
-      <input type="text" id="email-signup" />
+    <div class="row g-3 p-1">
+      <div class="col-auto">
+        <label for="emailSignup" class="visually-hidden">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="emailSignup"
+          placeholder="email@example.com"
+        />
+      </div>
     </div>
-    <div>
-      <label for="password-signup">password:</label>
-      <input type="password" id="password-signup" />
+    <div class="row g-3 p-1">
+      <div class="col-auto">
+        <label for="passwordSignup" class="visually-hidden">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="passwordSignup"
+          placeholder="Password"
+        />
+      </div>
     </div>
-    <div>
-      <button type="submit">signup</button>
+    <div class="row g-3 p-1">
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Signup</button>
+      </div>
     </div>
   </form>
+</div>
 
-<script src="/javascript/login.js"></script>
-</body>
-</html>
+<script src="/javascript/signup.js"></script>
