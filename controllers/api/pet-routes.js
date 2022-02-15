@@ -1,6 +1,19 @@
 const router = require("express").Router();
 const { Pet } = require("../../models");
 
+//Route to get all pets
+router.get("/", (req, res) => {
+  Pet.findAll({
+    attributes: ["pet_name", "pet_age", "pet_breed", "pet_desc"],
+  })
+    .then((dbPetData) => {
+      res.json(dbPetData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(err);
+    });
+});
 // Route to Create Pet
 router.post("/", (req, res) => {
   Pet.create({
@@ -20,12 +33,13 @@ router.post("/", (req, res) => {
 
 // Route to Update Pet
 router.put("/:id", (req, res) => {
-  Pet.update({
+  Pet.update(req.body, {
     where: {
-      id: req.body.id,
+      id: req.params.id,
     },
   })
     .then((petDbData) => {
+      console.log(petDbData);
       if (!petDbData) {
         res.status(404).json({ message: "Not a valid Pet" });
         return;
@@ -40,9 +54,10 @@ router.put("/:id", (req, res) => {
 
 // Route to Delete Pet
 router.delete("/:id", (req, res) => {
+  console.log("id", req.params.id);
   Pet.destroy({
     where: {
-      id: req.body.id,
+      id: req.params.id,
     },
   })
     .then((petDbData) => {

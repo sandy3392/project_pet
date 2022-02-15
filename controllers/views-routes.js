@@ -71,7 +71,13 @@ router.get("/profile/:id", (req, res) => {
     ],
   })
     .then((profileData) => {
-      res.json(profileData);
+      const post = profileData.map((post) => {
+        post.get({ plain: true });
+      });
+      res.render("profile", {
+        post,
+        loggedIn: req.session.loggedIn,
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -79,7 +85,7 @@ router.get("/profile/:id", (req, res) => {
     });
 });
 
-//Route to get all Post
+//Route to get all Post and render to home page
 router.get("/dashboard", (req, res) => {
   Post.findAll({
     attributes: ["post_desc"],
@@ -96,7 +102,9 @@ router.get("/dashboard", (req, res) => {
       });
       res.render("homepage", {
         post,
-        // loggedIn: req.session.loggedIn,
+
+        loggedIn: req.session.loggedIn,
+
       });
     })
     .catch((err) => {
