@@ -35,8 +35,6 @@ router.post("/login", (req, res) => {
       req.session.user_id = userDbData.id;
       req.session.username = userDbData.username;
       req.session.loggedIn = true;
-
-      res.render("homepage");
     });
   });
 });
@@ -82,7 +80,7 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   User.destroy({
     where: {
-      id: req.body.id,
+      id: req.params.id,
     },
   })
     .then((userDbData) => {
