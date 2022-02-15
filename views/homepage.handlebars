@@ -1,1 +1,50 @@
-<div>Homepage/Feed</div>
+{{#if loggedIn}}
+<div class="container mt-5">
+  <input
+    type="text"
+    class="form-control m-1"
+    id="inputPostContent"
+    placeholder="Post here"
+  />
+  <button type="submit" class="btn btn-primary m-1" id="postBtn">Post</button>
+</div>
+
+<div class="container mt-5">
+  <div class="card text-dark bg-light mb-3" style="max-width: 100%;">
+    <div class="card-header" id="profileName">Penny</div>
+    <div class="card-body">
+      <h5 class="card-title">Let's play!</h5>
+      <p class="card-text lead">Some quick example text to build on the card
+        title and make up the bulk of the card's content.</p>
+    </div>
+    <input
+      type="text"
+      class="card-text form-control"
+      id="inputPostContent"
+      placeholder="Comment here"
+    />
+    <button
+      type="submit"
+      class="btn btn-primary m-1"
+      id="commentBtn"
+    >Comment</button>
+    <div class="card-text m-1 border">
+      <p>Comment section</p>
+    </div>
+    <div class="card-text m-1 border">
+      <p>Comment section</p>
+    </div>
+    <div class="card-text m-1 border">
+      <p>Comment section</p>
+    </div>
+    <div class="card-text m-1 border">
+      <p>Comment section</p>
+    </div>
+  </div>
+</div>
+
+{{#else}}
+
+{{/if}}
+
+<script src="/public/javascript/logout.js"></script>

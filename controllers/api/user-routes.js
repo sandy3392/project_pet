@@ -13,6 +13,7 @@ router.get("/", (req, res) => {
     });
 });
 
+
 router.post("/login", (req, res) => {
   User.findOne({
     where: {
@@ -38,6 +39,7 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
 
 // Route to Create User
 router.post("/", (req, res) => {

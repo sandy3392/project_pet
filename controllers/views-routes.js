@@ -1,6 +1,43 @@
 const router = require("express").Router();
 const { User, Post, Pet } = require("../models");
 
+//Get login page
+router.get("/login", (req, res) => {
+  res.render("login");
+});
+
+router.get("/signup", (req, res) => {
+  res.render("signup");
+});
+
+router.post("/login", (req, res) => {
+  User.findOne({
+    where: {
+      email: req.body.email,
+    },
+  }).then((userDbData) => {
+    if (!userDbData) {
+      res.status(404).json({ message: "No user found" });
+      return;
+    }
+
+    const passwordAuth = userDbData.checkPassword(req.body.password);
+
+    if (!passwordAuth) {
+      res.status(400).json({ message: "Incorrect Password" });
+      return;
+    }
+
+    req.session.save(() => {
+      req.session.user_id = userDbData.id;
+      req.session.username = userDbData.username;
+      req.session.loggedIn = true;
+
+      res.render("homepage");
+    });
+  });
+});
+
 //Get all users
 router.get("/profile/", (req, res) => {
   User.findAll({
@@ -16,7 +53,6 @@ router.get("/profile/", (req, res) => {
 });
 
 //Route to get back a User profile
-
 router.get("/profile/:id", (req, res) => {
   User.findOne({
     where: {
@@ -66,7 +102,9 @@ router.get("/dashboard", (req, res) => {
       });
       res.render("homepage", {
         post,
+
         loggedIn: req.session.loggedIn,
+
       });
     })
     .catch((err) => {
